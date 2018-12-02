@@ -12,11 +12,11 @@ Part 1:
 
 ```js
 const response = await fetch("https://adventofcode.com/2018/day/1/input");
-const data = await response.text();
+const input = await response.text();
 
-data = data.split(/\n/g).reduce((acc, curVal) => acc + Number(curVal), 0);
+input = input.split(/\n/g).reduce((acc, curVal) => acc + Number(curVal), 0);
 
-console.log(`The result is: ${data}`);
+console.log(`The result is: ${input}`);
 ```
 
 Part 2:
@@ -25,10 +25,10 @@ Part 2:
 const results = {};
 let sum = 0;
 
-data = data.split(/\n/g).map(Number);
+input = input.split(/\n/g).map(Number);
 
 while (true) {
-  for (const item of data) {
+  for (const item of input) {
     results[sum] = true;
     sum += item;
     if (results[sum]) {
@@ -36,4 +36,57 @@ while (true) {
     }
   }
 }
+```
+
+## Day 2
+
+https://adventofcode.com/2018/day/2
+
+Part 1:
+
+`JavaScript`
+
+```js
+input = input.split(/\n/g);
+
+function splitByChar(input) {
+  const chars = input.split("");
+  return chars.sort();
+}
+
+const checksumData = {
+  doubles: 0,
+  tripes: 0
+};
+
+const lettersByLineArray = [];
+
+for (const line of input) {
+  const lettersByLine = {};
+  for (const char of splitByChar(line)) {
+    if (!lettersByLine[char]) {
+      lettersByLine[char] = 1;
+    } else {
+      lettersByLine[char]++;
+    }
+  }
+  lettersByLineArray.push(lettersByLine);
+}
+
+for (const resItem of lettersByLineArray) {
+  if (Object.values(resItem).filter(item => item === 2).length > 0) {
+    checksumData.doubles++;
+  }
+
+  if (Object.values(resItem).filter(item => item === 3).length > 0) {
+    checksumData.tripes++;
+  }
+}
+
+// checksum result
+console.log(
+  `Checksum ${checksumData.doubles} * ${
+    checksumData.tripes
+  } = ${checksumData.doubles * checksumData.tripes}`
+);
 ```
