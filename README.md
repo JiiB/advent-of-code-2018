@@ -18,3 +18,22 @@ data = data.split(/\n/g).reduce((acc, curVal) => acc + Number(curVal), 0);
 
 console.log(`The result is: ${data}`);
 ```
+
+Part 2:
+
+```js
+const results = {};
+let sum = 0;
+
+data = data.split(/\n/g).map(Number);
+
+while (true) {
+  for (const item of data) {
+    results[sum] = true;
+    sum += item;
+    if (results[sum]) {
+      return sum;
+    }
+  }
+}
+```
